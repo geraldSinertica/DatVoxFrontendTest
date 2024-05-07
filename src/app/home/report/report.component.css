@@ -1,0 +1,13 @@
+.contenedorHeader {
+  background-image: url("../../../assets/headerBlue.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+tr > th {
+  width: 33.33% !important;
+}
+
+table {
+  margin: 20px;
+  width: 935px;
+}

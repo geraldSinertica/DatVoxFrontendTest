@@ -1,0 +1,28 @@
+<div class="bg-slate-300  p-32">
+   
+    <section class="bg-gray-50 ">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <div class="w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
+            <h2 class="text-6xl text-center pt-4">Logo</h2>
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-medium leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                Buscar Reporte
+              </h1>
+              <form [formGroup]="formulario" class="space-y-4 md:space-y-6" >
+                <div>
+                  <label for="idenficacion" class="block mb-2 text-sm font-medium text-gray-900 ">Número de cédula</label>
+                  <input type="idenficacion" formControlName="idenficacion" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 -gray-400  "
+                    placeholder="Numero de identificacion" required="">
+                </div>
+                <button class="bg-teal-900 w-full text-white  py-2 rounded-md" mat-menu-item (click)="onSubmit()"
+                 >
+                  Buscar
+                </button>               
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</div>
