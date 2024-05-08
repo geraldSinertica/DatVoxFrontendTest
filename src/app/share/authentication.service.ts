@@ -14,7 +14,8 @@ import {  Router } from '@angular/router';
 export class AuthenticationService {
   //Header para afirmar el tipo de contenido JSON
   //URL del API
-  ServerUrl =`https://localhost:7136`;
+  ServerUrl2 =`https://localhost:7136`;
+  ServerUrl =`https://datavoxapi.azurewebsites.net/`;
   //Variable observable para gestionar la información del token del usuario, con características especiales
   private tokenUserSubject: BehaviorSubject<any>;
   //Variable observable para gestionar la información del token

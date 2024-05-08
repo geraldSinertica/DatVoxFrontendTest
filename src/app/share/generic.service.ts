@@ -9,8 +9,9 @@ import { Observable, catchError, map } from 'rxjs';
 export class GenericService {
 
     // URL del API, definida en enviroments->enviroment.ts
-    urlAPI: string = `https://localhost:7136/report/`;
-    //Información usuario actual
+    urlAPI_dev: string = `https://localhost:7136/report/`;
+    urlAPI: string = `https://datavoxapi.azurewebsites.net/report/`;
+	//Información usuario actual
     currentUser: any;
     token= localStorage.getItem('token');
     //Inyectar cliente HTTP para las solicitudes al API
