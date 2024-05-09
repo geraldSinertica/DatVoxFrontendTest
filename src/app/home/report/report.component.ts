@@ -18,6 +18,7 @@ export class ReportComponent {
   juicios: any;
   bienesMuebles: any;
   receivedData:any;
+  Propiedades:any
   // En el constructor de ReportComponent
   constructor(
     private gService: GenericService,
@@ -31,12 +32,12 @@ export class ReportComponent {
     this.dataService.formData$.subscribe(data => {
       this.receivedData = data;
     });
-    this.GetReport();
+    this.GetDataReport();
 
   }
 
   // En el método GetReport del componente
-  GetReport() {
+  GetDataReport() {
     console.log('DATA TRASFER pre route', this.receivedData)
     this.gService
       .get('Completo', `?identification=${this.receivedData}&tipoReporte=1`)
@@ -48,25 +49,13 @@ export class ReportComponent {
           this.precalificado = this.datos.precalificado.reglas;
           this.juicios = this.datos.demandas;
           this.bienesMuebles = this.datos.propiedades.bienesMuebles;
-          console.log('Datos', this.datos);
-          console.log('Data Personal', this.datosGenerales);
+          this.dataService.getStatesData(this.datos.propiedades).subscribe(data => {
+            this.Propiedades = data;
+          });
+          console.log('Propiedades ordenadas ',this.Propiedades)
         },
       });
   }
 
-  async GetReport1() {
-    try {
-      const data: any = await this.gService
-        .get('Completo', `?identification=504220015&tipoReporte=1`)
-        .pipe(takeUntil(this.destroy$))
-        .toPromise();
-
-      console.log('CALLBACK API', data);
-      this.datos = data.Data; // Asignar los datos recibidos
-      console.log('Datos', this.datos); // Verificar los datos asignados
-    } catch (error) {
-      console.error('Error al obtener datos del API', error);
-      // Aquí puedes manejar el error, mostrar un mensaje al usuario, etc.
-    }
-  }
+ 
 }

@@ -1,0 +1,23 @@
+class Propiedad{
+    placa: string;
+    tipoBien: string;
+    numeroSerie?: string;
+    numeroMotor: string;
+    numeroSerieMotor: string;
+    fabricanteMotor: string;
+    asientoInscripcion: string;
+    secuenciaInscripcion: string;
+    fechaInscripcion?: string;
+    numIdAnterior: string;
+    citasAnteriores: string;
+    valorHaciendaInscripcion?: number;
+    valorHaciendaOficial?: number;
+    valorContrato?: number;
+    estadoActual: string;
+    estadoActualTributario: string;
+    uso: string;
+    tomoUltMovimiento: string;
+    asientoUltMovimiento: string;
+    secuenciaUltMovimiento: string;
+    fechaUltMovimiento: string;
+}

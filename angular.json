@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "yeralproyect": {
+    "DataVoxWeb": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/yeralproyect",
+            "outputPath": "dist/DataVoxWeb ",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -53,10 +53,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "yeralproyect:build:production"
+              "browserTarget": "DataVoxWeb:build:production"
             },
             "development": {
-              "browserTarget": "yeralproyect:build:development"
+              "browserTarget": "DataVoxWeb:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -64,7 +64,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "yeralproyect:build"
+            "browserTarget": "DataVoxWeb:build"
           }
         },
         "test": {

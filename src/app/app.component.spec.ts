@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'yeralproyect'`, () => {
+  it(`should have as title 'DataVoxWeb'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('yeralproyect');
+    expect(app.title).toEqual('DataVoxWeb');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('yeralproyect app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('DataVoxWeb app is running!');
   });
 });

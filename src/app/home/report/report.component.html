@@ -8,7 +8,7 @@
       <div class="contenedorHeader w-[800px] h-[90px] flex items-center px-8">
         <h1 class="text-5xl text-white"> REPORTE CREDITICIO</h1>
       </div>
-      <h2 class="text-6xl">Logo</h2>
+      <h2 class="text-6xl"><img src="../../../assets/LogoDataVox.png" alt=""></h2>
     </div>
 
    
@@ -63,13 +63,12 @@
 
       <div class="relative overflow-x-auto  sm:rounded-md">
 
-        <h6 class="text-1xl pb-2">Bienes Inmuebles</h6>
-        <hr class="border border-[#7F7F7F] w-36 mb-8" />
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+       
+        <table id="PropiedadesTabla" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
             <tr>
               <th scope="col" class="px-6 py-3">
-                Propiedad
+                Identificador
               </th>
               <th scope="col" class="px-6 py-3">
                 Subcategoría
@@ -77,59 +76,43 @@
               <th scope="col" class="px-6 py-3">
                 Tipo
               </th>
+            
 
             </tr>
           </thead>
-          <tbody *ngIf="vehiculos ; else Loading">
-            <tr *ngFor="let vehiculo of vehiculos" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{vehiculo.marca}}
-              </th>
-              <td class="px-6 py-4">
-                {{vehiculo.numeroChasis}}
-              </td>
-              <td class="px-6 py-4">
-                {{vehiculo.uso}}
-              </td>
+          <tbody *ngIf="Propiedades ; else Loading">
 
+
+
+            <tr *ngFor="let propiedad of Propiedades" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <ng-container [ngSwitch]="propiedad.TipoPropiedad">
+
+                <ng-container *ngSwitchCase="0">
+                  <!-- Estructura específica para propiedades de tipo Buque -->
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Placa: {{propiedad.Propiedad.placa}}
+                  </th>
+                  <td class="px-6 py-4">
+                    Vehiculo
+                  </td>
+                  <td class="px-6 py-4">
+                    {{propiedad.Propiedad.marca}}
+                  </td>
+                </ng-container>
+
+                
+          
+               
+          
+                <!-- Agregar más casos para otros tipos de propiedades si es necesario -->
+          
+              </ng-container>
             </tr>
 
           </tbody>
         </table>
 
-        <h6 class="text-1xl pb-2">  Bienes Muebles</h6>
-        <hr class="border border-[#7F7F7F] w-36 mb-8" />
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
-            <tr>
-              <th scope="col" class="px-6 py-3">
-                Propiedad
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Subcategoría
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Tipo
-              </th>
-
-            </tr>
-          </thead>
-          <tbody *ngIf="vehiculos ; else Loading">
-            <tr *ngFor="let bien of bienesMuebles" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{bien.marca}}
-              </th>
-              <td class="px-6 py-4">
-                {{bien.numeroChasis}}
-              </td>
-              <td class="px-6 py-4">
-                {{bien.uso}}
-              </td>
-
-            </tr>
-
-          </tbody>
-        </table>
+       
 
        
       </div>

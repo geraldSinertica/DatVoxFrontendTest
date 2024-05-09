@@ -7,6 +7,10 @@ tr > th {
   width: 33.33% !important;
 }
 
+#PropiedadesTabla tr > th {
+  width: 25% !important;
+}
+
 table {
   margin: 20px;
   width: 935px;
