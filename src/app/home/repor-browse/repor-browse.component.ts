@@ -32,10 +32,16 @@ export class ReportBrowseComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+
+    if (this.formulario.invalid) {
+      return;
+    }
+  
     let a= this.formulario.value
     this.dataService.sendFormData(a.idenficacion);
     this.router.navigate(['/report']);
 
   }
+  
   
 }

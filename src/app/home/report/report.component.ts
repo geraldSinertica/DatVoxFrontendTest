@@ -61,7 +61,7 @@ export class ReportComponent {
   // En el método GetReport del componente
   GetDataReport() {
     this.gService
-      .get('Completo', `?identification=503000569&tipoReporte=1`)
+      .get('Completo', `?identification=${109960389}&tipoReporte=1`)
       .subscribe({
         next: (call) => {
           this.datos = call.data;
