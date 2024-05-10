@@ -1,5 +1,13 @@
 import { TipoPropiedad } from './Enums';
 
+export interface Operation{
+    estado: string;
+    saldo: number;
+    diasMora: number;
+
+}
+
+
 export interface buques {
     nombreBuque: string;
     numeroSerie: string;
@@ -61,5 +69,5 @@ export interface Propiedad {
 }
 
 export interface Propiedades{
-   Propiedades:any
+   Propiedades:Propiedad []
 }

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CurrencyPipe } from '@angular/common'; // Importa CurrencyPipe
+
 
 import { HomeRoutingModule } from './home-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -22,7 +24,8 @@ import { ReportBrowseComponent } from './repor-browse/repor-browse.component';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CurrencyPipe
   ],
 })
 export class HomeModule {}

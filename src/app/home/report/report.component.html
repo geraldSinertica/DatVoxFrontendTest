@@ -11,59 +11,279 @@
       <h2 class="text-6xl"><img src="../../../assets/LogoDataVox.png" alt=""></h2>
     </div>
 
-   
-      <section *ngIf="datosGenerales; else Loading">
-        <hr class="border border-[#D99D55] w-full " />
-        <h3 class="text-center text-3xl py-8">Datos generales</h3>
-        <hr class="border border-[#D99D55] w-full mb-9 " />
-        <div class="grid grid-cols-[50%,50%]">
-          <div class="leftInformation">
-            <p>
-              <label for="identificacion">Identificación: </label>
-              <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.identificacion}}</span>
-            </p>
-            <p>
-              <label for="identificacion">Nombre: </label>
-              <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.nombreCompleto}}</span>
-            </p>
-            <p>
-              <label for="identificacion">Fecha de nacimiento: </label>
-              <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.fechaNacimiento | date:'dd, MMMM, yyyy':'es' }}</span>
-            </p>
-           
-          </div>
-          <div class="rightInformation">
-            <p>
-              <label for="identificacion">Teléfono: </label>
-              <span id="identificacion" class="text-[#7F7F7F]">63509014</span>
-            </p>
-            <p>
-              <label for="identificacion">Estado civil: </label>
-              <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.estadoCivil ==1? 'Soltero':'N/a' }}</span>
-            </p>
-            
-          </div>
-        </div>
-  
-      </section>
-      <ng-template #Loading>
-         <h1>Esperando la informacion</h1>
-      </ng-template>
-   
-      <ng-template #NoInfo>
-        <h1>No existe informacion</h1>
-     </ng-template>
 
+    <section *ngIf="datosGenerales; else Loading">
+      <hr class="border border-[#D99D55] w-full " />
+      <h3 class="text-center text-3xl py-8">Datos generales</h3>
+      <hr class="border border-[#D99D55] w-full mb-9 " />
+      <div class="grid grid-cols-[50%,50%]">
+        <div class="leftInformation">
+          <p>
+            <label for="identificacion">Identificación: </label>
+            <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.identificacion}}</span>
+          </p>
+          <p>
+            <label for="identificacion">Nombre: </label>
+            <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.nombreCompleto}}</span>
+          </p>
+          <p>
+            <label for="identificacion">Fecha de nacimiento: </label>
+            <span id="identificacion"
+              class="text-[#7F7F7F]">{{datosGenerales?.fechaNacimiento | date:'dd, MMMM, yyyy':'es' }}</span>
+          </p>
+          <p>
+            <label for="identificacion">Edad: </label>
+            <span id="identificacion"
+              class="text-[#7F7F7F]">{{ datosGenerales?.edad }} años</span>
+          </p>
+        </div>
+        <div class="rightInformation">
+          <p>
+            <label for="identificacion">Teléfono: </label>
+            <span id="identificacion" class="text-[#7F7F7F]">{{phones}}</span>
+          </p>
+          <p>
+            <label for="identificacion">Estado civil: </label>
+            <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.estadoCivil}}</span>
+          </p>
+
+        </div>
+      </div>
+
+    </section>
+
+    <section *ngIf="datosGenerales; else Loading">
+      <hr class="border border-[#D99D55] w-full " />
+      <h3 class="text-center text-3xl py-8">Ingresos</h3>
+      <hr class="border border-[#D99D55] w-full mb-9 " />
+      <div class="grid grid-cols-[25%,25%,25%,25%]">
+       
+        <div class="rightInformation">
+          <p>
+            <label for="Salario">Salario: </label>
+            <span id="Salario" class="text-[#7F7F7F]"> &#8353; {{ datos.ingresos.lastSalary  | currency: 'CRC' : 'symbol' : '2.1-2'   }}</span>
+          </p>  
+        </div>
+
+        <div class="rightInformation">
+          <p>
+            <label for="Salario">Promedio trimestral: </label>
+            <span id="Salario" class="text-[#7F7F7F]">&#8353; {{ datos.ingresos.avg3Months | currency: 'CRC' : 'symbol' : '2.1-2'  }}</span>
+          </p>  
+        </div>
+
+        <div class="rightInformation">
+          <p>
+            <label for="Salario">Promedio semestral: </label>
+            <span id="Salario" class="text-[#7F7F7F]">&#8353; {{ datos.ingresos.avg6Months | currency: 'CRC' : 'symbol' : '2.1-2'  }}</span>
+          </p>  
+        </div>
+
+        <div class="rightInformation">
+          <p>
+            <label for="Salario">Promedio anual: </label>
+            <span id="Salario" class="text-[#7F7F7F]">&#8353; {{ datos.ingresos.avgYear }}</span>
+          </p>  
+        </div>
+
+      </div>
+
+    </section>
+    <ng-template #Loading>
+      <h1>Esperando la informacion</h1>
+    </ng-template>
+
+    <ng-template #NoInfo>
+      <h1>No existe informacion</h1>
+    </ng-template>
+
+    <section class="mt-16">
+      <h4 class="text-2xl pb-2">Filiaciones</h4>
+      <hr class="border border-[#7F7F7F] w-36 mb-8" />
+
+     <div class="relative overflow-x-auto  sm:rounded-lg">
+       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+         <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
+           <tr>
+            
+             <th scope="col" class="px-6 py-3">
+               Nombre
+             </th>
+             <th scope="col" class="px-6 py-3">
+               Vinculo
+             </th>
+
+           </tr>
+         </thead>
+         <tbody *ngIf="precalificado; else  Loading">
+          
+          <ng-container *ngFor="let vinculo of vinculos">
+
+            <ng-container [ngSwitch]="vinculo.tipo">
+
+              <ng-container *ngSwitchCase="1">
+
+                <ng-container *ngFor="let filiacion of vinculo.persona">
+
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ filiacion.nombrePersona }}
+                  </th>
+                  <td class="px-6 py-4">
+                    Madre
+                  </td>
+                 
+
+                  </tr>
+                </ng-container>
+
+              </ng-container>
+
+
+              <ng-container *ngSwitchCase="2">
+
+                <ng-container *ngFor="let filiacion of vinculo.persona">
+
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                   {{ filiacion.nombrePersona }}
+                  </th>
+                  <td class="px-6 py-4">
+                    Padre
+                  </td>
+                 
+
+                  </tr>
+                </ng-container>
+
+              </ng-container>
+
+
+              <ng-container *ngSwitchCase="4">
+
+                <ng-container *ngFor="let filiacion of vinculo.persona">
+
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ filiacion.nombrePersona }}
+                  </th>
+                  <td class="px-6 py-4">
+                    CONYUGUE
+                  </td>
+                 
+
+                  </tr>
+                </ng-container>
+
+              </ng-container>
+
+
+              <ng-container *ngSwitchCase="3">
+
+                <ng-container *ngFor="let filiacion of vinculo.persona">
+
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ filiacion.nombrePersona }}
+                  </th>
+                  <td class="px-6 py-4 text-center text-uppercase">
+                    HIJO
+                  </td>
+                 
+
+                  </tr>
+                </ng-container>
+
+              </ng-container>
+
+
+              <ng-container *ngSwitchCase="5">
+
+                <ng-container *ngFor="let filiacion of vinculo.persona">
+
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                     {{ filiacion.nombrePersona }}
+                  </th>
+                  <td class="px-6 py-4">
+                    Hermano
+                  </td>
+                 
+
+                  </tr>
+                </ng-container>
+
+              </ng-container>
+
+            </ng-container>
+
+          </ng-container>
+
+         </tbody>
+
+       </table>
+     </div>
+   </section>
+    
+
+    <section class="mt-16">
+       <h4 class="text-2xl pb-2">Precalificado</h4>
+       <hr class="border border-[#7F7F7F] w-36 mb-8" />
+
+      <div class="relative overflow-x-auto  sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                Código
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Detalle
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Estado
+              </th>
+
+            </tr>
+          </thead>
+          <tbody *ngIf="precalificado; else  Loading">
+            <tr *ngFor="let regla of precalificado" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ regla.codigo }}
+              </th>
+              <td class="px-6 py-4">
+                {{ regla.detalle }}
+              </td>
+              <td class="px-6 py-4 flex justify-between">
+                {{ regla.resultado }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 12l5 5l10 -10" />
+                </svg>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </section>
     <!--  -->
 
 
     <section class="mt-14">
-      <h4 class="text-2xl pb-2">Propiedades</h4>
+      <h4 class="text-2xl pb-2">Bienes muebles e inmuebles</h4>
       <hr class="border border-[#7F7F7F] w-36 mb-8" />
 
       <div class="relative overflow-x-auto  sm:rounded-md">
 
-       
+
         <table id="PropiedadesTabla" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
             <tr>
@@ -76,45 +296,62 @@
               <th scope="col" class="px-6 py-3">
                 Tipo
               </th>
-            
+
 
             </tr>
           </thead>
           <tbody *ngIf="Propiedades ; else Loading">
 
-
-
-            <tr *ngFor="let propiedad of Propiedades" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <ng-container *ngFor="let propiedad of Propiedades.Propiedades">
               <ng-container [ngSwitch]="propiedad.TipoPropiedad">
 
+
                 <ng-container *ngSwitchCase="0">
-                  <!-- Estructura específica para propiedades de tipo Buque -->
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Placa: {{propiedad.Propiedad.placa}}
-                  </th>
-                  <td class="px-6 py-4">
-                    Vehiculo
-                  </td>
-                  <td class="px-6 py-4">
-                    {{propiedad.Propiedad.marca}}
-                  </td>
+                  <ng-container *ngFor="let vehiculos of propiedad.Propiedad">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Placa: {{ vehiculos.placa }}
+                      </th>
+                      <td class="px-6 py-4">
+                        Vehiculo
+                      </td>
+                      <td class="px-6 py-4">
+                        {{ vehiculos.marca }}
+                      </td>
+                    </tr>
+                  </ng-container>
                 </ng-container>
 
-                
-          
-               
-          
-                <!-- Agregar más casos para otros tipos de propiedades si es necesario -->
-          
+
+                <ng-container *ngSwitchCase="2">
+                  <ng-container *ngFor="let terreno of propiedad.Propiedad">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Numero de finca: {{ terreno.numeroFinca }}
+                    </th>
+                    <td class="px-6 py-4">
+                      Propiedad
+                    </td>
+                    <td class="px-6 py-4">
+                      {{ terreno.naturaleza }}
+                    </td>
+
+                    </tr>
+                  </ng-container>
+                </ng-container>
+
               </ng-container>
-            </tr>
+            </ng-container>
+
+
+
 
           </tbody>
         </table>
 
-       
 
-       
+
+
       </div>
     </section>
 
@@ -141,7 +378,7 @@
           <tbody *ngIf="juicios; else  NoInfo">
             <tr *ngFor="let demanda of juicios" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-               {{demanda.Expediente}}
+                {{demanda.Expediente}}
               </th>
               <td class="px-6 py-4 ">
                 {{demanda.Descrpcion}}
@@ -157,53 +394,11 @@
       </div>
     </section>
 
-    <section class="mt-16">
-      <h4 class="text-2xl pb-4 text-center ">Precalificado</h4>
-      <hr class="border border-[#D99D55] w-full mb-8" />
-
-      <div class="relative overflow-x-auto  sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
-            <tr>
-              <th scope="col" class="px-6 py-3">
-                Código
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Detalle
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Estado
-              </th>
-
-            </tr>
-          </thead>
-          <tbody *ngIf="precalificado; else  Loading" >
-            <tr *ngFor="let regla of precalificado" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ regla.codigo }}
-              </th>
-              <td class="px-6 py-4">
-                {{ regla.detalle }}
-              </td>
-              <td class="px-6 py-4 flex justify-between">
-                {{ regla.resultado }}
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-outline icon-tabler-check">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M5 12l5 5l10 -10" />
-                </svg>
-              </td>
-            </tr>
-          </tbody>
-          
-        </table>
-      </div>
-    </section>
+  
 
 
     <section class="mt-44">
       <hr class="border border-[#999999] w-full mb-1" />
       <h4 class="text-[#999999] text-base text-center">Información extra</h4>
     </section>
-</div>
+  </div>
