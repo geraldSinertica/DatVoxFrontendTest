@@ -6,7 +6,31 @@ export interface Operation{
     diasMora: number;
 
 }
+export interface Telephone{
+    tipo:string,
+    telefono: any
+}
+export interface telephones{
+    telephones: Telephone[]
+}
 
+export interface direction{
+    direccion: any
+}
+
+export interface directions{
+    directions: direction[]
+}
+
+export interface Judge{
+    expediente:string,
+    cuantia:any,
+    descrpcion:string
+}
+
+export interface Judges{
+    judges: Judge[]
+}
 
 export interface buques {
     nombreBuque: string;

@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { buques, vehiculos, aeronaves, bienesMuebles,Propiedad,Propiedades } from 'src/app/home/Models/Interfaces';
+import { buques, vehiculos, aeronaves, bienesMuebles,Propiedad,Propiedades, telephones,Telephone, directions, direction, Judges, Judge } from 'src/app/home/Models/Interfaces';
 import { TipoPropiedad } from '../home/Models/Enums';
 import { Operation } from '../home/Models/Interfaces';
 
@@ -104,10 +104,12 @@ export class DataService {
 
   getOperationData(operations:any): Observable<any[]>{
     const operation : any[] = [];
-
+    
     const mapPropiedad = (items: any, mappingFunction: (item: any) => any) => {
       if (items && items.length > 0) {
-        mappingFunction(items[0]) 
+        items.forEach((item: any) => {
+          operation.push(mappingFunction(item));
+        });
       }
     };
 
@@ -117,38 +119,105 @@ export class DataService {
       diasMora: operation.diasMora,
     });
 
-    mapPropiedad(operations.openOperations, mapOperation);
+    if(operations?.openOperations){
+      mapPropiedad(operations.openOperations, mapOperation);
+
+    }
 
     return of( operation );
   }
 
-  getPhones(phones: any): Observable<any> {
-    const phone: any[] = [];
+  getPhones(phones: any): Observable<telephones> {
+    const phone: Telephone[] = [];
+    const result:telephones = {
+      telephones: []
+    };
+
     let res = ''; // Inicializamos res como una cadena vacía
     const mapTelefonos = (items: any[], mappingFunction: (item: any) => any) => {
       if (items && items.length > 0) {
-        items.forEach(item => { // Iteramos sobre los elementos y llamamos a mappingFunction para cada uno
-          phone.push(mappingFunction(item)); // Añadimos el resultado de mappingFunction a phone
+        items.forEach(item => { 
+          phone.push(mappingFunction(item)); 
         });
       }
     };
   
     const mapTelefono = (phone: any) => ({
-      telefono: phone.telefono
+      telefono: phone.telefono,
+      tipo: phone.tipo
     });
   
     if (phones?.telefonos) {
       mapTelefonos(phones.telefonos, mapTelefono);
-      phone.forEach(element => {
-        res += `${element.telefono},`;
-      });
+      
     }
     
     console.log(res); // Esto es opcional, te permitirá ver qué valores tiene 'res' en la consola.
-  
-    return of(res);
+    result.telephones=phone;
+    return of(result);
   }
   
+  getDireccions(address: any): Observable<directions> {
+    const addres: direction[] = [];
+    const result:directions = {
+      directions: []
+    };
 
+    let res = ''; // Inicializamos res como una cadena vacía
+    const mapAdress = (items: any[], mappingFunction: (item: any) => any) => {
+      if (items && items.length > 0) {
+        items.forEach(item => { 
+          addres.push(mappingFunction(item)); 
+        });
+      }
+    };
+  
+    const mapAdres = (phone: any) => ({
+      direccion: phone.direccion,
+      
+    });
+  
+    if (address?.direcciones) {
+      mapAdress(address.direcciones, mapAdres);
+      
+    }
+    
+    ; // Esto es opcional, te permitirá ver qué valores tiene 'res' en la consola.
+    result.directions=addres;
+    return of(result);
+  }
+
+  getJucios(judges:any): Observable <Judges>{
+    
+    const judge: Judge[] = [];
+    const result:Judges = {
+      judges: []
+    };
+
+    let res = ''; // Inicializamos res como una cadena vacía
+    const mapJudgess = (items: any[], mappingFunction: (item: any) => any) => {
+      if (items && items.length > 0) {
+        items.forEach(item => { 
+          judge.push(mappingFunction(item)); 
+        });
+      }
+    };
+  
+    const mapJudges = (jud: any) => ({
+      expediente:jud.expediente,
+      cuantia:jud.cuantia,
+      descrpcion:jud.descrpcion
+      
+    });
+  
+    if (judges) {
+      mapJudgess(judges, mapJudges );
+      
+    }
+    
+    ; // Esto es opcional, te permitirá ver qué valores tiene 'res' en la consola.
+    result.judges=judge;
+    return of(result);
+  }
 
 }

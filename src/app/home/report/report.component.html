@@ -31,18 +31,19 @@
             <span id="identificacion"
               class="text-[#7F7F7F]">{{datosGenerales?.fechaNacimiento | date:'dd, MMMM, yyyy':'es' }}</span>
           </p>
-          <p>
-            <label for="identificacion">Edad: </label>
-            <span id="identificacion"
-              class="text-[#7F7F7F]">{{ datosGenerales?.edad }} años</span>
-          </p>
+
         </div>
         <div class="rightInformation">
+          <p>
+            <label for="identificacion">Edad: </label>
+            <span id="identificacion" class="text-[#7F7F7F]">{{ datosGenerales?.edad }} años</span>
+          </p>
           <p>
             <label for="identificacion">Teléfono: </label>
             <span id="identificacion" class="text-[#7F7F7F]">{{phones}}</span>
           </p>
           <p>
+
             <label for="identificacion">Estado civil: </label>
             <span id="identificacion" class="text-[#7F7F7F]">{{datosGenerales?.estadoCivil}}</span>
           </p>
@@ -52,188 +53,117 @@
 
     </section>
 
-    <section *ngIf="datosGenerales; else Loading">
+    <section class="mt-16">
+      <div class="container mx-auto mt-10">
+        <h4 class=" pb-2">Telefonos</h4>
+        <hr class="border border-[#7F7F7F] w-36 mb-8" />
+        <ng-container *ngIf="phones; else NoInfo">
+          <div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-8">
+            <ng-container *ngFor="let Telefono of phones.telephones| slice:0:10">
+              <div class="bg-gray-200 p-4 rounded shadow-md">
+                <p class="font-bold text-sm">Teléfono: {{Telefono.telefono}}</p>
+                <p class="text-sm">{{ Telefono.tipo}}</p>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+
+        
+
+
+        <h4 class=" pb-2">Direcciones</h4>
+        <hr class="border border-[#7F7F7F] w-36 mb-8" />
+       <ng-container *ngIf="adress; else NoInfo">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" >
+          <ng-container *ngFor="let direccion1 of adress.directions | slice:0:10">
+            <div class="bg-gray-200 p-4 rounded shadow-md">
+              <p class="font-bold">Dirección</p>
+              <p class="text-sm">{{ direccion1.direccion }}</p>
+            </div>
+          </ng-container>
+        </div>
+       </ng-container>
+
+      </div>
+    </section>
+
+    <section class="mt-16">
+     
+      <div class="container mx-auto mt-10">
+        <h4 class="text-2xl pb-2">Filiaciones</h4>
+        <hr class="border border-[#7F7F7F] w-36 mb-8" />
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <ng-container *ngFor="let filiacion of vinculos">
+            <ng-container *ngFor="let persona of filiacion.persona">
+              <div class="bg-gray-200 p-4 rounded shadow-md">
+                <p class="font-bold">Tipo: {{ GetTipoLabel(persona.tipo) }}</p>
+                <div class="mt-2">
+                  <p class="">Nombre: {{ persona.nombrePersona }}</p>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      
+    </section>
+
+    <section class="mt-16">
       <hr class="border border-[#D99D55] w-full " />
       <h3 class="text-center text-3xl py-8">Ingresos</h3>
       <hr class="border border-[#D99D55] w-full mb-9 " />
-      <div class="grid grid-cols-[25%,25%,25%,25%]">
-       
-        <div class="rightInformation">
-          <p>
-            <label for="Salario">Salario: </label>
-            <span id="Salario" class="text-[#7F7F7F]"> &#8353; {{ datos.ingresos.lastSalary  | currency: 'CRC' : 'symbol' : '2.1-2'   }}</span>
-          </p>  
-        </div>
+      <ng-container *ngIf="datos && datos.ingresos; else NoInfo ">
+        <div class="grid grid-cols-[25%,25%,25%,25%]">
 
-        <div class="rightInformation">
-          <p>
-            <label for="Salario">Promedio trimestral: </label>
-            <span id="Salario" class="text-[#7F7F7F]">&#8353; {{ datos.ingresos.avg3Months | currency: 'CRC' : 'symbol' : '2.1-2'  }}</span>
-          </p>  
-        </div>
+          <div class="bg-gray-200 p-4 rounded shadow-md m-5">
+            <p>
+              <label for="Salario">Salario: </label>
+              <span id="Salario" class="text-[#7F7F7F] text-sm">
+                &#8353;
+                {{ datos.ingresos.lastSalary ? (datos.ingresos.lastSalary | currency: 'CRC' : 'symbol' : '2.1-2') : 0 }}
+              </span>
+            </p>
+          </div>
 
-        <div class="rightInformation">
-          <p>
-            <label for="Salario">Promedio semestral: </label>
-            <span id="Salario" class="text-[#7F7F7F]">&#8353; {{ datos.ingresos.avg6Months | currency: 'CRC' : 'symbol' : '2.1-2'  }}</span>
-          </p>  
-        </div>
+          <div class="bg-gray-200 p-4 rounded shadow-md m-5">
+            <p>
+              <label for="Salario">Promedio trimestral: </label>
+              <span id="Salario" class="text-[#7F7F7F] text-sm">&#8353;
+                {{   datos.ingresos.avg3Months    ? (datos.ingresos.avg3Months | currency: 'CRC' : 'symbol' : '2.1-2') : 0 }}</span>
+            </p>
+          </div>
 
-        <div class="rightInformation">
-          <p>
-            <label for="Salario">Promedio anual: </label>
-            <span id="Salario" class="text-[#7F7F7F]">&#8353; {{ datos.ingresos.avgYear }}</span>
-          </p>  
-        </div>
+          <div class="bg-gray-200 p-4 rounded shadow-md m-5">
+            <p>
+              <label for="Salario">Promedio semestral: </label>
+              <span id="Salario" class="text-[#7F7F7F] text-sm">&#8353;
+                {{  datos.ingresos.avg6Months  ? (datos.ingresos.avg6Months | currency: 'CRC' : 'symbol' : '2.1-2'): 0  }}</span>
+            </p>
+          </div>
 
-      </div>
+          <div class="bg-gray-200 p-4 rounded shadow-md m-5">
+            <p>
+              <label for="Salario">Promedio anual: </label>
+              <span id="Salario" class="text-[#7F7F7F] text-sm">&#8353;
+                {{   datos.ingresos.avgYear  ? (datos.ingresos.avgYear | currency: 'CRC' : 'symbol' : '2.1-2' ) :0 }}</span>
+            </p>
+          </div>
+
+        </div>
+      </ng-container>
+
 
     </section>
-    <ng-template #Loading>
-      <h1>Esperando la informacion</h1>
-    </ng-template>
 
-    <ng-template #NoInfo>
-      <h1>No existe informacion</h1>
-    </ng-template>
+
+
+ 
+
+
 
     <section class="mt-16">
-      <h4 class="text-2xl pb-2">Filiaciones</h4>
+      <h4 class="text-2xl pb-2">Precalificado</h4>
       <hr class="border border-[#7F7F7F] w-36 mb-8" />
-
-     <div class="relative overflow-x-auto  sm:rounded-lg">
-       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-         <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
-           <tr>
-            
-             <th scope="col" class="px-6 py-3">
-               Nombre
-             </th>
-             <th scope="col" class="px-6 py-3">
-               Vinculo
-             </th>
-
-           </tr>
-         </thead>
-         <tbody *ngIf="precalificado; else  Loading">
-          
-          <ng-container *ngFor="let vinculo of vinculos">
-
-            <ng-container [ngSwitch]="vinculo.tipo">
-
-              <ng-container *ngSwitchCase="1">
-
-                <ng-container *ngFor="let filiacion of vinculo.persona">
-
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{ filiacion.nombrePersona }}
-                  </th>
-                  <td class="px-6 py-4">
-                    Madre
-                  </td>
-                 
-
-                  </tr>
-                </ng-container>
-
-              </ng-container>
-
-
-              <ng-container *ngSwitchCase="2">
-
-                <ng-container *ngFor="let filiacion of vinculo.persona">
-
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {{ filiacion.nombrePersona }}
-                  </th>
-                  <td class="px-6 py-4">
-                    Padre
-                  </td>
-                 
-
-                  </tr>
-                </ng-container>
-
-              </ng-container>
-
-
-              <ng-container *ngSwitchCase="4">
-
-                <ng-container *ngFor="let filiacion of vinculo.persona">
-
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ filiacion.nombrePersona }}
-                  </th>
-                  <td class="px-6 py-4">
-                    CONYUGUE
-                  </td>
-                 
-
-                  </tr>
-                </ng-container>
-
-              </ng-container>
-
-
-              <ng-container *ngSwitchCase="3">
-
-                <ng-container *ngFor="let filiacion of vinculo.persona">
-
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ filiacion.nombrePersona }}
-                  </th>
-                  <td class="px-6 py-4 text-center text-uppercase">
-                    HIJO
-                  </td>
-                 
-
-                  </tr>
-                </ng-container>
-
-              </ng-container>
-
-
-              <ng-container *ngSwitchCase="5">
-
-                <ng-container *ngFor="let filiacion of vinculo.persona">
-
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                     {{ filiacion.nombrePersona }}
-                  </th>
-                  <td class="px-6 py-4">
-                    Hermano
-                  </td>
-                 
-
-                  </tr>
-                </ng-container>
-
-              </ng-container>
-
-            </ng-container>
-
-          </ng-container>
-
-         </tbody>
-
-       </table>
-     </div>
-   </section>
-    
-
-    <section class="mt-16">
-       <h4 class="text-2xl pb-2">Precalificado</h4>
-       <hr class="border border-[#7F7F7F] w-36 mb-8" />
 
       <div class="relative overflow-x-auto  sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -275,6 +205,49 @@
       </div>
     </section>
     <!--  -->
+
+    <section class="mt-16">
+      <h4 class="text-2xl pb-2">Operacione Activas</h4>
+      <hr class="border border-[#7F7F7F] w-36 mb-8" />
+
+      <ng-container *ngIf="operations  ; else NoInfo">
+        <div class="relative overflow-x-auto  sm:rounded-lg">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Estado
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Saldo en mora
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Dias en mora
+                </th>
+  
+              </tr>
+            </thead>
+            <tbody *ngIf="operations; else  Loading">
+              <tr *ngFor="let ope of operations" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ ope.estado }}
+                </th>
+                <td class="px-6 py-4">
+                  {{ ope.saldo | currency: 'CRC' : 'symbol' : '2.1-2' }}
+                </td>
+                <td class="px-6 py-4 flex justify-between">
+                  {{ ope.diasMora }}
+  
+                </td>
+              </tr>
+            </tbody>
+  
+          </table>
+        </div>
+      </ng-container>
+
+      
+    </section>
 
 
     <section class="mt-14">
@@ -326,15 +299,15 @@
                 <ng-container *ngSwitchCase="2">
                   <ng-container *ngFor="let terreno of propiedad.Propiedad">
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      Numero de finca: {{ terreno.numeroFinca }}
-                    </th>
-                    <td class="px-6 py-4">
-                      Propiedad
-                    </td>
-                    <td class="px-6 py-4">
-                      {{ terreno.naturaleza }}
-                    </td>
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Numero de finca: {{ terreno.numeroFinca }}
+                      </th>
+                      <td class="px-6 py-4">
+                        Propiedad
+                      </td>
+                      <td class="px-6 py-4">
+                        {{ terreno.naturaleza }}
+                      </td>
 
                     </tr>
                   </ng-container>
@@ -359,32 +332,32 @@
       <h4 class="text-2xl pb-2">Demandas</h4>
       <hr class="border border-[#7F7F7F] w-36 mb-8" />
 
-      <div class="relative overflow-x-auto  sm:rounded-lg">
+      <div class="relative overflow-x-auto  sm:rounded-lg ">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-[#F0F0F0] border-b border-[#B9B9B9]">
             <tr>
               <th scope="col" class="px-6 py-3">
-                Código
+                Expediente
               </th>
               <th scope="col" class="px-6 py-3">
                 Detalle
               </th>
               <th scope="col" class="px-6 py-3">
-                Estado
+                Cuantia
               </th>
 
             </tr>
           </thead>
           <tbody *ngIf="juicios; else  NoInfo">
-            <tr *ngFor="let demanda of juicios" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr *ngFor="let demanda of juicios.judges" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{demanda.Expediente}}
+                {{demanda.expediente}}
               </th>
               <td class="px-6 py-4 ">
-                {{demanda.Descrpcion}}
+                {{demanda.descrpcion}}
               </td>
               <td class="px-6 py-4">
-                {{demanda.Estado}}
+                {{demanda.cuantia | currency: 'CRC' : 'symbol' : '2.1-2'}}
               </td>
 
             </tr>
@@ -394,7 +367,13 @@
       </div>
     </section>
 
-  
+    <ng-template #Loading>
+      <h1 class="text-center">Esperando la informacion</h1>
+    </ng-template>
+
+    <ng-template #NoInfo>
+      <h1 class="text-center">No existe informacion</h1>
+    </ng-template>
 
 
     <section class="mt-44">
